@@ -7,10 +7,13 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { GetServerSideProps } from "next";
+import Link from "next/link";
 import React from "react";
-import { useReducer, useState } from "react";
+import { Button } from "react-daisyui";
 
 type Person = {
+  id: number;
   firstName: string;
   lastName: string;
   age: number;
@@ -19,32 +22,9 @@ type Person = {
   progress: number;
 };
 
-const defaultData: Person[] = [
-  {
-    firstName: "tanner",
-    lastName: "linsley",
-    age: 24,
-    visits: 100,
-    status: "In Relationship",
-    progress: 50,
-  },
-  {
-    firstName: "tandy",
-    lastName: "miller",
-    age: 40,
-    visits: 40,
-    status: "Single",
-    progress: 80,
-  },
-  {
-    firstName: "joe",
-    lastName: "dirte",
-    age: 45,
-    visits: 20,
-    status: "Complicated",
-    progress: 10,
-  },
-];
+type Props = {
+  data: Person[];
+};
 
 const columnHelper = createColumnHelper<Person>();
 
@@ -70,12 +50,33 @@ const columns = [
   columnHelper.accessor("progress", {
     header: "Profile Progress",
   }),
+  columnHelper.accessor("id", {
+    cell: function Cell({ row: { original } }) {
+      const id = original.id;
+      return (
+        <Link href={`/detail/${id}`}>
+          <Button color="accent">詳細</Button>
+        </Link>
+      );
+    },
+  }),
 ];
 
+export const getStaticProps: GetServerSideProps<Props> = async () => {
+  const response = await fetch("http://localhost:3000/api/testTable");
+  const data = await response.json();
+
+  const props: Props = {
+    data,
+  };
+  console.log(data);
+  return { props };
+};
+
 // ダッシュボード
-export default function Home() {
-  const [data, setData] = useState(() => [...defaultData]);
-  const rerender = useReducer(() => ({}), {})[1];
+export default function Home({ data }: Props) {
+  // const [data, setData] = useState(() => [...defaultData]);
+  // const rerender = useReducer(() => ({}), {})[1];
 
   const table = useReactTable({
     data,
@@ -87,9 +88,12 @@ export default function Home() {
       <Header />
       <main>
         <Navbar />
-        <div className="mt-48 mb-48">
+        <div className="mt-48 mb-48 pr-24 pl-24">
           <div className="mx-auto mb-24 flex justify-center">
             <h2 className="text-4xl">イベントリスト</h2>
+          </div>
+          <div className="flex justify-start mb-8">
+            <Button color="info">行追加</Button>
           </div>
           <div className="overflow-x-auto">
             <table className="table w-full">
@@ -124,6 +128,9 @@ export default function Home() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="flex justify-end mt-8">
+            <Button color="success">保存</Button>
           </div>
         </div>
         <Footer />
