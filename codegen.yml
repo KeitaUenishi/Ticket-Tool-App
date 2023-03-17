@@ -1,0 +1,7 @@
+overwrite: true
+schema: "https://prepared-fly-34.hasura.app/v1/graphql"
+documents: "src/queries/**/*.ts"
+generates:
+  src/types/generated/:
+    preset: "client"
+    plugins: []
