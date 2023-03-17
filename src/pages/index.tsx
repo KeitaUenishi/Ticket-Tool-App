@@ -1,6 +1,9 @@
 import { Header } from "@/components/common/header";
 import { Footer } from "@/components/layouts/Footer";
 import { Navbar } from "@/components/layouts/Navbar";
+import { GET_EVENTS } from "@/queries/queries";
+import { GetEventsQuery } from "@/types/generated/graphql";
+import { useQuery } from "@apollo/client";
 import {
   createColumnHelper,
   flexRender,
@@ -62,27 +65,28 @@ const columns = [
   }),
 ];
 
-export const getStaticProps: GetServerSideProps<Props> = async () => {
-  const response = await fetch("http://localhost:3000/api/testTable");
-  const data = await response.json();
+// export const getStaticProps: GetServerSideProps<Props> = async () => {
+//   const response = await fetch("http://localhost:3000/api/testTable");
+//   const data = await response.json();
 
-  const props: Props = {
-    data,
-  };
-  console.log(data);
-  return { props };
-};
+//   const props: Props = {
+//     data,
+//   };
+//   console.log(data);
+//   return { props };
+// };
 
 // ダッシュボード
-export default function Home({ data }: Props) {
+export default function Home() {
   // const [data, setData] = useState(() => [...defaultData]);
   // const rerender = useReducer(() => ({}), {})[1];
+  const { data } = useQuery<GetEventsQuery>(GET_EVENTS);
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+  // const table = useReactTable({
+  //   data,
+  //   columns,
+  //   getCoreRowModel: getCoreRowModel(),
+  // });
   return (
     <>
       <Header />
@@ -96,7 +100,7 @@ export default function Home({ data }: Props) {
             <Button color="info">行追加</Button>
           </div>
           <div className="overflow-x-auto">
-            <table className="table w-full">
+            {/* <table className="table w-full">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id}>
@@ -127,7 +131,19 @@ export default function Home({ data }: Props) {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table> */}
+            {data?.events.map((event) => {
+              return (
+                <>
+                  <p className="text-2xl" key={event.id}>
+                    {event.event_name}
+                  </p>
+                  <p className="text-2xl" key={event.id}>
+                    {event.event_date}
+                  </p>
+                </>
+              );
+            })}
           </div>
           <div className="flex justify-end mt-8">
             <Button color="success">保存</Button>

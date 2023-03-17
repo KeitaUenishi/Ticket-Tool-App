@@ -13,18 +13,18 @@ export const GET_EVENTS = gql`
   }
 `;
 
-// export const GET_EVENTS_LOCAL = gql`
-//   query GetEvents(order_by: { event_date: desc }) @client {
-//     events {
-//       id
-//       event_type_id
-//       event_name
-//       event_date
-//       created_date
-//       updated_date
-//     }
-//   }
-// `;
+export const GET_EVENTS_LOCAL = gql`
+  query GetEvents {
+    events(order_by: { event_date: desc }) @client {
+      id
+      event_type_id
+      event_name
+      event_date
+      created_date
+      updated_date
+    }
+  }
+`;
 
 export const CREATE_EVENT = gql`
   mutation CreateUser(
