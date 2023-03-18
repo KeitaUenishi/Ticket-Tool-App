@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import React from "react";
 
 export const Navbar = () => {
@@ -41,6 +42,9 @@ export const Navbar = () => {
         <a className="btn btn-ghost normal-case text-xl">Ticket Tool</a>
       </div>
       <div className="navbar-end">
+        <button className="btn btn-primary" onClick={() => signOut()}>
+          ログアウト
+        </button>
         <button className="btn btn-ghost btn-circle">
           <svg
             xmlns="http://www.w3.org/2000/svg"
