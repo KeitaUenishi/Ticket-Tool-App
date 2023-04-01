@@ -27,7 +27,7 @@ export const GET_EVENTS_LOCAL = gql`
 `;
 
 export const CREATE_EVENT = gql`
-  mutation CreateUser(
+  mutation CreateEvent(
     $event_type_id: Int
     $event_date: date
     $event_name: String
@@ -48,8 +48,8 @@ export const CREATE_EVENT = gql`
     }
   }
 `;
-export const DELETE_USER = gql`
-  mutation DeleteUser($id: uuid!) {
+export const DELETE_EVENT = gql`
+  mutation DeleteEvent($id: uuid!) {
     delete_events_by_pk(id: $id) {
       id
       event_type_id
@@ -60,8 +60,8 @@ export const DELETE_USER = gql`
     }
   }
 `;
-export const UPDATE_USER = gql`
-  mutation UpdateUser($id: uuid!, $event_type_id: Int, $event_name: String) {
+export const UPDATE_EVENT = gql`
+  mutation UpdateEvent($id: uuid!, $event_type_id: Int, $event_name: String) {
     update_events_by_pk(
       pk_columns: { id: $id }
       _set: { event_type_id: $event_type_id, event_name: $event_name }
