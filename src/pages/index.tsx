@@ -37,27 +37,20 @@ export default function Home() {
               <tr>
                 <th>開催日</th>
                 <th>イベント名</th>
-                <th></th>
+                <th>場所</th>
               </tr>
             </thead>
             <tbody>
               {events?.map((event) => {
                 return (
-                  <tr key={event.id}>
-                    <td>{event.event_date}</td>
-                    <td>{event.event_name}</td>
-                    <td>
-                      <div className="flex justify-center">
-                        <Button
-                          color="accent"
-                          onClick={() => {
-                            handleEdit(event.id);
-                          }}
-                        >
-                          詳細
-                        </Button>
-                      </div>
-                    </td>
+                  <tr
+                    key={event.id}
+                    className="hover:bg-gray-600 transition-all duration-500 ease-out cursor-pointer"
+                    onClick={() => handleEdit(event.id)}
+                  >
+                    <td className="bg-transparent">{event.event_date}</td>
+                    <td className="bg-transparent">{event.event_name}</td>
+                    <td className="bg-transparent">{event.place_name}</td>
                   </tr>
                 );
               })}

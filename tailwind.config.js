@@ -6,7 +6,11 @@ module.exports = {
     "node_modules/react-daisyui/dist/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        transparent: "transparent",
+      },
+    },
   },
   plugins: [require("daisyui")],
 };

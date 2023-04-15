@@ -22,6 +22,13 @@ export const EventForm = ({ onSubmit, buttonText, data }: Props) => {
           {...register("event_name")}
         />
       </div>
+      <div className="mb-8 mt-8">
+        <label className="font-medium">場所</label>
+        <input
+          className="border-solid border py-2 px-4 w-full rounded"
+          {...register("place_name")}
+        />
+      </div>
       <div className="mb-8">
         <label className="font-medium">開催日</label>
         <input
@@ -41,7 +48,7 @@ export const EventForm = ({ onSubmit, buttonText, data }: Props) => {
         </select>
       </div>
       <div className="mb-8 flex justify-end">
-        <Button type="submit" color="success">
+        <Button type="button" color="success">
           {buttonText}
         </Button>
       </div>

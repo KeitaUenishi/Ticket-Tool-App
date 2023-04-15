@@ -37,6 +37,7 @@ const Index = () => {
         variables: {
           id: data.id,
           event_name: data.event_name,
+          place_name: data.place_name,
           event_date: data.event_date,
           event_type_id: Number(data.event_type_id),
           updated_date: new Date().toISOString(),
@@ -77,6 +78,8 @@ const Index = () => {
               <div className="text-gray-100">{event?.event_date}</div>
               <div className="text-gray-100">イベント名</div>
               <div className="text-gray-100">{event?.event_name}</div>
+              <div className="text-gray-100">場所</div>
+              <div className="text-gray-100">{event?.place_name}</div>
               <div className="text-gray-100">イベント種別</div>
               <div className="text-gray-100">{event?.event_type_id}</div>
               <div className="text-gray-100">登録日</div>

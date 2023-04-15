@@ -18,6 +18,7 @@ export const Index = () => {
       await insert_event_one({
         variables: {
           event_name: data.event_name,
+          place_name: data.place_name,
           event_date: data.event_date,
           event_type_id: Number(data.event_type_id),
         },
