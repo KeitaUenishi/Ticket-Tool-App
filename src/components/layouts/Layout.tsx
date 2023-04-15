@@ -16,21 +16,21 @@ export const Layout = ({ children }: Props) => {
     return <>Loading...</>;
   }
 
-  if (!data && status === "unauthenticated") {
-    return (
-      <>
-        <div>ログインしてください</div>
-        <div>
-          <button className="btn btn-outline" onClick={() => signIn("google")}>
-            Googleでログイン
-          </button>
-        </div>
-        <div>
-          <button className="btn btn-outline">Twitterでログイン</button>
-        </div>
-      </>
-    );
-  }
+  // if (!data && status === "unauthenticated") {
+  //   return (
+  //     <>
+  //       <div>ログインしてください</div>
+  //       <div>
+  //         <button className="btn btn-outline" onClick={() => signIn("google")}>
+  //           Googleでログイン
+  //         </button>
+  //       </div>
+  //       <div>
+  //         <button className="btn btn-outline">Twitterでログイン</button>
+  //       </div>
+  //     </>
+  //   );
+  // }
   return (
     <>
       <Head>
@@ -41,7 +41,9 @@ export const Layout = ({ children }: Props) => {
       </Head>
       <main>
         <Navbar />
-        {children}
+        <div className="w-full max-w-lg flex justify-center m-auto pr-8 pl-8">
+          {children}
+        </div>
       </main>
       <Footer />
     </>

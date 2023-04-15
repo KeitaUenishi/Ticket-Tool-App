@@ -61,10 +61,21 @@ export const DELETE_EVENT = gql`
   }
 `;
 export const UPDATE_EVENT = gql`
-  mutation UpdateEvent($id: uuid!, $event_type_id: Int, $event_name: String) {
+  mutation UpdateEvent(
+    $id: uuid!
+    $event_type_id: Int
+    $event_name: String
+    $event_date: date
+    $updated_date: timestamptz
+  ) {
     update_events_by_pk(
       pk_columns: { id: $id }
-      _set: { event_type_id: $event_type_id, event_name: $event_name }
+      _set: {
+        event_type_id: $event_type_id
+        event_name: $event_name
+        event_date: $event_date
+        updated_date: $updated_date
+      }
     ) {
       id
       event_type_id
