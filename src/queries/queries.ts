@@ -6,6 +6,7 @@ export const GET_EVENTS = gql`
       id
       event_type_id
       event_name
+      place_name
       event_date
       created_date
       updated_date
@@ -19,6 +20,7 @@ export const GET_EVENTS_LOCAL = gql`
       id
       event_type_id
       event_name
+      place_name
       event_date
       created_date
       updated_date
@@ -31,10 +33,12 @@ export const CREATE_EVENT = gql`
     $event_type_id: Int
     $event_date: date
     $event_name: String
+    $place_name: String
   ) {
     insert_events_one(
       object: {
         event_name: $event_name
+        place_name: $place_name
         event_date: $event_date
         event_type_id: $event_type_id
       }
@@ -42,6 +46,7 @@ export const CREATE_EVENT = gql`
       id
       event_type_id
       event_name
+      place_name
       event_date
       created_date
       updated_date
@@ -54,6 +59,7 @@ export const DELETE_EVENT = gql`
       id
       event_type_id
       event_name
+      place_name
       event_date
       created_date
       updated_date
@@ -65,6 +71,7 @@ export const UPDATE_EVENT = gql`
     $id: uuid!
     $event_type_id: Int
     $event_name: String
+    $place_name: String
     $event_date: date
     $updated_date: timestamptz
   ) {
@@ -73,6 +80,7 @@ export const UPDATE_EVENT = gql`
       _set: {
         event_type_id: $event_type_id
         event_name: $event_name
+        place_name: $place_name
         event_date: $event_date
         updated_date: $updated_date
       }
@@ -80,6 +88,7 @@ export const UPDATE_EVENT = gql`
       id
       event_type_id
       event_name
+      place_name
       event_date
       created_date
       updated_date

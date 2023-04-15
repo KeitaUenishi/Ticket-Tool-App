@@ -92,6 +92,7 @@ export type Events = {
   event_name: Scalars['String'];
   event_type_id: Scalars['Int'];
   id: Scalars['uuid'];
+  place_name?: Maybe<Scalars['String']>;
   updated_date: Scalars['timestamptz'];
 };
 
@@ -141,6 +142,7 @@ export type Events_Bool_Exp = {
   event_name?: InputMaybe<String_Comparison_Exp>;
   event_type_id?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  place_name?: InputMaybe<String_Comparison_Exp>;
   updated_date?: InputMaybe<Timestamptz_Comparison_Exp>;
 };
 
@@ -162,6 +164,7 @@ export type Events_Insert_Input = {
   event_name?: InputMaybe<Scalars['String']>;
   event_type_id?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['uuid']>;
+  place_name?: InputMaybe<Scalars['String']>;
   updated_date?: InputMaybe<Scalars['timestamptz']>;
 };
 
@@ -173,6 +176,7 @@ export type Events_Max_Fields = {
   event_name?: Maybe<Scalars['String']>;
   event_type_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['uuid']>;
+  place_name?: Maybe<Scalars['String']>;
   updated_date?: Maybe<Scalars['timestamptz']>;
 };
 
@@ -184,6 +188,7 @@ export type Events_Min_Fields = {
   event_name?: Maybe<Scalars['String']>;
   event_type_id?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['uuid']>;
+  place_name?: Maybe<Scalars['String']>;
   updated_date?: Maybe<Scalars['timestamptz']>;
 };
 
@@ -210,6 +215,7 @@ export type Events_Order_By = {
   event_name?: InputMaybe<Order_By>;
   event_type_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  place_name?: InputMaybe<Order_By>;
   updated_date?: InputMaybe<Order_By>;
 };
 
@@ -231,6 +237,8 @@ export enum Events_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  PlaceName = 'place_name',
+  /** column name */
   UpdatedDate = 'updated_date'
 }
 
@@ -241,6 +249,7 @@ export type Events_Set_Input = {
   event_name?: InputMaybe<Scalars['String']>;
   event_type_id?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['uuid']>;
+  place_name?: InputMaybe<Scalars['String']>;
   updated_date?: InputMaybe<Scalars['timestamptz']>;
 };
 
@@ -277,6 +286,7 @@ export type Events_Stream_Cursor_Value_Input = {
   event_name?: InputMaybe<Scalars['String']>;
   event_type_id?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['uuid']>;
+  place_name?: InputMaybe<Scalars['String']>;
   updated_date?: InputMaybe<Scalars['timestamptz']>;
 };
 
@@ -298,6 +308,8 @@ export enum Events_Update_Column {
   EventTypeId = 'event_type_id',
   /** column name */
   Id = 'id',
+  /** column name */
+  PlaceName = 'place_name',
   /** column name */
   UpdatedDate = 'updated_date'
 }
@@ -516,37 +528,39 @@ export type Uuid_Comparison_Exp = {
 export type GetEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetEventsQuery = { __typename?: 'query_root', events: Array<{ __typename?: 'events', id: any, event_type_id: number, event_name: string, event_date: any, created_date: any, updated_date: any }> };
+export type GetEventsQuery = { __typename?: 'query_root', events: Array<{ __typename?: 'events', id: any, event_type_id: number, event_name: string, place_name?: string | null, event_date: any, created_date: any, updated_date: any }> };
 
 export type CreateEventMutationVariables = Exact<{
   event_type_id?: InputMaybe<Scalars['Int']>;
   event_date?: InputMaybe<Scalars['date']>;
   event_name?: InputMaybe<Scalars['String']>;
+  place_name?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type CreateEventMutation = { __typename?: 'mutation_root', insert_events_one?: { __typename?: 'events', id: any, event_type_id: number, event_name: string, event_date: any, created_date: any, updated_date: any } | null };
+export type CreateEventMutation = { __typename?: 'mutation_root', insert_events_one?: { __typename?: 'events', id: any, event_type_id: number, event_name: string, place_name?: string | null, event_date: any, created_date: any, updated_date: any } | null };
 
 export type DeleteEventMutationVariables = Exact<{
   id: Scalars['uuid'];
 }>;
 
 
-export type DeleteEventMutation = { __typename?: 'mutation_root', delete_events_by_pk?: { __typename?: 'events', id: any, event_type_id: number, event_name: string, event_date: any, created_date: any, updated_date: any } | null };
+export type DeleteEventMutation = { __typename?: 'mutation_root', delete_events_by_pk?: { __typename?: 'events', id: any, event_type_id: number, event_name: string, place_name?: string | null, event_date: any, created_date: any, updated_date: any } | null };
 
 export type UpdateEventMutationVariables = Exact<{
   id: Scalars['uuid'];
   event_type_id?: InputMaybe<Scalars['Int']>;
   event_name?: InputMaybe<Scalars['String']>;
+  place_name?: InputMaybe<Scalars['String']>;
   event_date?: InputMaybe<Scalars['date']>;
   updated_date?: InputMaybe<Scalars['timestamptz']>;
 }>;
 
 
-export type UpdateEventMutation = { __typename?: 'mutation_root', update_events_by_pk?: { __typename?: 'events', id: any, event_type_id: number, event_name: string, event_date: any, created_date: any, updated_date: any } | null };
+export type UpdateEventMutation = { __typename?: 'mutation_root', update_events_by_pk?: { __typename?: 'events', id: any, event_type_id: number, event_name: string, place_name?: string | null, event_date: any, created_date: any, updated_date: any } | null };
 
 
-export const GetEventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetEvents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"events"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"event_date"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"event_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"event_name"}},{"kind":"Field","name":{"kind":"Name","value":"event_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_date"}}]}}]}}]} as unknown as DocumentNode<GetEventsQuery, GetEventsQueryVariables>;
-export const CreateEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_type_id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_events_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"event_name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"event_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_date"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"event_type_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_type_id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"event_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"event_name"}},{"kind":"Field","name":{"kind":"Name","value":"event_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_date"}}]}}]}}]} as unknown as DocumentNode<CreateEventMutation, CreateEventMutationVariables>;
-export const DeleteEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_events_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"event_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"event_name"}},{"kind":"Field","name":{"kind":"Name","value":"event_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_date"}}]}}]}}]} as unknown as DocumentNode<DeleteEventMutation, DeleteEventMutationVariables>;
-export const UpdateEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_type_id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updated_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_events_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"event_type_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_type_id"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"event_name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"event_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_date"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"updated_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updated_date"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"event_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"event_name"}},{"kind":"Field","name":{"kind":"Name","value":"event_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_date"}}]}}]}}]} as unknown as DocumentNode<UpdateEventMutation, UpdateEventMutationVariables>;
+export const GetEventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetEvents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"events"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"order_by"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"event_date"},"value":{"kind":"EnumValue","value":"desc"}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"event_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"event_name"}},{"kind":"Field","name":{"kind":"Name","value":"place_name"}},{"kind":"Field","name":{"kind":"Name","value":"event_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_date"}}]}}]}}]} as unknown as DocumentNode<GetEventsQuery, GetEventsQueryVariables>;
+export const CreateEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_type_id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"place_name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insert_events_one"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"object"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"event_name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"place_name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"place_name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"event_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_date"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"event_type_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_type_id"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"event_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"event_name"}},{"kind":"Field","name":{"kind":"Name","value":"place_name"}},{"kind":"Field","name":{"kind":"Name","value":"event_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_date"}}]}}]}}]} as unknown as DocumentNode<CreateEventMutation, CreateEventMutationVariables>;
+export const DeleteEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DeleteEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"delete_events_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"event_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"event_name"}},{"kind":"Field","name":{"kind":"Name","value":"place_name"}},{"kind":"Field","name":{"kind":"Name","value":"event_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_date"}}]}}]}}]} as unknown as DocumentNode<DeleteEventMutation, DeleteEventMutationVariables>;
+export const UpdateEventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateEvent"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"uuid"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_type_id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"place_name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"event_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"updated_date"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"timestamptz"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"update_events_by_pk"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pk_columns"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"_set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"event_type_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_type_id"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"event_name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"place_name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"place_name"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"event_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"event_date"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"updated_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"updated_date"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"event_type_id"}},{"kind":"Field","name":{"kind":"Name","value":"event_name"}},{"kind":"Field","name":{"kind":"Name","value":"place_name"}},{"kind":"Field","name":{"kind":"Name","value":"event_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_date"}},{"kind":"Field","name":{"kind":"Name","value":"updated_date"}}]}}]}}]} as unknown as DocumentNode<UpdateEventMutation, UpdateEventMutationVariables>;
