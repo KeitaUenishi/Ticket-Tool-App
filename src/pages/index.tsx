@@ -1,24 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Link } from "react-daisyui";
 import { useQuery } from "@apollo/client";
 
-import { Header } from "@/components/common/header";
-import { Footer } from "@/components/layouts/Footer";
-import { Navbar } from "@/components/layouts/Navbar";
 import { GET_EVENTS } from "@/queries/queries";
 
 import { GetEventsQuery } from "@/types/generated/graphql";
-import { Event } from "@/types/events";
 import { Layout } from "@/components/layouts/Layout";
-import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 // ダッシュボード
 export default function Home() {
   const router = useRouter();
+  const session = useSession();
   const { data } = useQuery<GetEventsQuery>(GET_EVENTS, {
     fetchPolicy: "cache-and-network",
   });
+
+  if (!session.data && session.status === "loading") {
+    return <>Loading...</>;
+  }
+
+  if (!session.data && session.status === "unauthenticated") {
+    router.push("/api/auth/signin");
+  }
+
   const { events } = data || {};
 
   const handleEdit = (editEventKey: string) => {

@@ -1,6 +1,5 @@
-import Head from "next/head";
 import React from "react";
-import { signIn, useSession } from "next-auth/react";
+import Head from "next/head";
 import { Footer } from "@/components/layouts/Footer";
 import { Navbar } from "@/components/layouts/Navbar";
 
@@ -9,28 +8,6 @@ type Props = {
 };
 
 export const Layout = ({ children }: Props) => {
-  const { data, status } = useSession();
-
-  console.log(data, status);
-  if (!data && status === "loading") {
-    return <>Loading...</>;
-  }
-
-  // if (!data && status === "unauthenticated") {
-  //   return (
-  //     <>
-  //       <div>ログインしてください</div>
-  //       <div>
-  //         <button className="btn btn-outline" onClick={() => signIn("google")}>
-  //           Googleでログイン
-  //         </button>
-  //       </div>
-  //       <div>
-  //         <button className="btn btn-outline">Twitterでログイン</button>
-  //       </div>
-  //     </>
-  //   );
-  // }
   return (
     <>
       <Head>

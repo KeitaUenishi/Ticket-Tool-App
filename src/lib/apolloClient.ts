@@ -11,7 +11,7 @@ const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_HASURA_URL,
+      uri: process.env.HASURA_PROJECT_ENDPOINT,
     }),
     cache: new InMemoryCache(),
   });
