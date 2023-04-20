@@ -12,18 +12,9 @@ import { useSession } from "next-auth/react";
 // ダッシュボード
 export default function Home() {
   const router = useRouter();
-  const session = useSession();
   const { data } = useQuery<GetEventsQuery>(GET_EVENTS, {
     fetchPolicy: "cache-and-network",
   });
-
-  if (!session.data && session.status === "loading") {
-    return <>Loading...</>;
-  }
-
-  if (!session.data && session.status === "unauthenticated") {
-    router.push("/api/auth/signin");
-  }
 
   const { events } = data || {};
 

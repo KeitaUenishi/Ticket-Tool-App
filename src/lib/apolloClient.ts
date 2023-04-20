@@ -4,15 +4,29 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import "cross-fetch/polyfill";
+
+const httpLink = new HttpLink({
+  uri: process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT,
+});
+
+const authLink = setContext((_, { headers }) => {
+  const adminSecret = process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET;
+  // TODO: セキュリティ的に良くないため、サーバーサイドに移動する
+  return {
+    headers: {
+      ...headers,
+      "x-hasura-admin-secret": adminSecret,
+    },
+  };
+});
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
-    link: new HttpLink({
-      uri: process.env.HASURA_PROJECT_ENDPOINT,
-    }),
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
 };

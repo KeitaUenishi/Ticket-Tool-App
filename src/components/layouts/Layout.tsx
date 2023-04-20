@@ -2,12 +2,25 @@ import React from "react";
 import Head from "next/head";
 import { Footer } from "@/components/layouts/Footer";
 import { Navbar } from "@/components/layouts/Navbar";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 type Props = {
   children: React.ReactNode;
 };
 
 export const Layout = ({ children }: Props) => {
+  const router = useRouter();
+  const { data, status } = useSession();
+
+  if (!data && status === "loading") {
+    return <>Loading...</>;
+  }
+
+  if (!data && status === "unauthenticated") {
+    router.push("/api/auth/signin");
+  }
+
   return (
     <>
       <Head>

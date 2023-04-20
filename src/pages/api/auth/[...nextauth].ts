@@ -20,8 +20,8 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   adapter: HasuraAdapter({
-    endpoint: process.env.HASURA_PROJECT_ENDPOINT!,
-    adminSecret: process.env.HASURA_ADMIN_SECRET!,
+    endpoint: process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT!,
+    adminSecret: process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET!,
   }),
   theme: {
     colorScheme: "auto",
