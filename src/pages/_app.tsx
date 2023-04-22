@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { ApolloProvider } from "@apollo/client";
 import { initializeApollo } from "@/lib/apolloClient";
+import { RecoilRoot } from "recoil";
 
 export default function App({
   Component,
@@ -11,9 +12,11 @@ export default function App({
   const client = initializeApollo();
   return (
     <SessionProvider session={session}>
-      <ApolloProvider client={client}>
-        <Component {...pageProps} />
-      </ApolloProvider>
+      <RecoilRoot>
+        <ApolloProvider client={client}>
+          <Component {...pageProps} />
+        </ApolloProvider>
+      </RecoilRoot>
     </SessionProvider>
   );
 }

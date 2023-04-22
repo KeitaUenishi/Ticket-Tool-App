@@ -1,19 +1,22 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import { Button, Link } from "react-daisyui";
+import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
+import { Layout } from "@/components/layouts/Layout";
 
 import { GET_EVENTS } from "@/queries/queries";
-
 import { GetEventsQuery } from "@/types/generated/graphql";
-import { Layout } from "@/components/layouts/Layout";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
+import { userState } from "@/store/user";
 
 // ダッシュボード
 export default function Home() {
   const router = useRouter();
+  const userId = useRecoilValue(userState);
+
   const { data } = useQuery<GetEventsQuery>(GET_EVENTS, {
     fetchPolicy: "cache-and-network",
+    variables: { userId: userId },
   });
 
   const { events } = data || {};

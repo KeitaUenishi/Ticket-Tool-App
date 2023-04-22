@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
 import Head from "next/head";
-import { Footer } from "@/components/layouts/Footer";
-import { Navbar } from "@/components/layouts/Navbar";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { Footer } from "@/components/layouts/Footer";
+import { Navbar } from "@/components/layouts/Navbar";
+import { userState } from "@/store/user";
 
 type Props = {
   children: React.ReactNode;
@@ -12,15 +14,19 @@ type Props = {
 export const Layout = ({ children }: Props) => {
   const router = useRouter();
   const { data, status } = useSession();
+  const setUserId = useSetRecoilState(userState);
 
-  if (!data && status === "loading") {
-    return <>Loading...</>;
-  }
+  useEffect(() => {
+    setUserId(data?.user?.id ?? "");
+  }, [data, status, setUserId]);
 
   if (!data && status === "unauthenticated") {
     router.push("/api/auth/signin");
   }
 
+  if (!data && status === "loading") {
+    return <>Loading...</>;
+  }
   return (
     <>
       <Head>

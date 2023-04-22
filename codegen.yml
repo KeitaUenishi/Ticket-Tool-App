@@ -1,5 +1,8 @@
 overwrite: true
-schema: "https://prepared-fly-34.hasura.app/v1/graphql"
+schema:
+  - ${NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT}:
+      headers:
+        x-hasura-admin-secret: ${NEXT_PUBLIC_HASURA_ADMIN_SECRET}
 documents: "src/queries/**/*.ts"
 generates:
   src/types/generated/:

@@ -14,10 +14,6 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
-    GithubProvider({
-      clientId: process.env.GITHUB_ID ?? "",
-      clientSecret: process.env.GITHUB_SECRET ?? "",
-    }),
   ],
   adapter: HasuraAdapter({
     endpoint: process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT!,

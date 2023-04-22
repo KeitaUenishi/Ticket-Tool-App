@@ -1,8 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const GET_EVENTS = gql`
-  query GetEvents {
-    events(order_by: { event_date: desc }) {
+  query GetEvents($userId: String) {
+    events(
+      where: { userId: { _eq: $userId } }
+      order_by: { event_date: desc }
+    ) {
       id
       event_type_id
       event_name
@@ -14,9 +17,27 @@ export const GET_EVENTS = gql`
   }
 `;
 
-export const GET_EVENTS_LOCAL = gql`
-  query GetEvents {
-    events(order_by: { event_date: desc }) @client {
+// export const GET_EVENTS_LOCAL = gql`
+//   query GetEvents {
+//     events(where: { userId: { _eq: $userId } }, order_by: { event_date: desc })
+//       @client {
+//       id
+//       event_type_id
+//       event_name
+//       place_name
+//       event_date
+//       created_date
+//       updated_date
+//     }
+//   }
+// `;
+
+export const GET_EVENT = gql`
+  query GetEvent($userId: String, $id: uuid!) {
+    events(
+      where: { userId: { _eq: $userId }, id: { _eq: $id } }
+      order_by: { event_date: desc }
+    ) {
       id
       event_type_id
       event_name
@@ -34,6 +55,7 @@ export const CREATE_EVENT = gql`
     $event_date: date
     $event_name: String
     $place_name: String
+    $userId: String
   ) {
     insert_events_one(
       object: {
@@ -41,6 +63,7 @@ export const CREATE_EVENT = gql`
         place_name: $place_name
         event_date: $event_date
         event_type_id: $event_type_id
+        userId: $userId
       }
     ) {
       id

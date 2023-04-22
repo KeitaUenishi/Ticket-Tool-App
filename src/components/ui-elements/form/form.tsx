@@ -14,7 +14,7 @@ export const EventForm = ({ onSubmit, buttonText, data }: Props) => {
   });
 
   return (
-    <form className="w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
+    <form className="w-full max-w-lg">
       <div className="mb-8 mt-8">
         <label className="font-medium">イベント名</label>
         <input
@@ -48,7 +48,7 @@ export const EventForm = ({ onSubmit, buttonText, data }: Props) => {
         </select>
       </div>
       <div className="mb-8 flex justify-end">
-        <Button type="button" color="success">
+        <Button type="button" color="success" onClick={handleSubmit(onSubmit)}>
           {buttonText}
         </Button>
       </div>

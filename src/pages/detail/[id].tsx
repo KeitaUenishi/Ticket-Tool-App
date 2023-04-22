@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 import { Button } from "react-daisyui";
 import { useRouter } from "next/router";
 
@@ -6,32 +7,34 @@ import { Layout } from "@/components/layouts/Layout";
 import { EventForm } from "@/components/ui-elements/form/form";
 
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_EVENTS, UPDATE_EVENT, DELETE_EVENT } from "@/queries/queries";
+import { GET_EVENT, UPDATE_EVENT, DELETE_EVENT } from "@/queries/queries";
 
 import {
   DeleteEventMutation,
-  GetEventsQuery,
+  GetEventQuery,
   UpdateEventMutation,
 } from "@/types/generated/graphql";
+import { userState } from "@/store/user";
 
 const Index = () => {
   const router = useRouter();
   const { id } = useRouter().query;
-  const { data } = useQuery<GetEventsQuery>(GET_EVENTS, {
+  const userId = useRecoilValue(userState);
+  const { data } = useQuery<GetEventQuery>(GET_EVENT, {
     fetchPolicy: "cache-and-network",
+    variables: { userId: userId, id: id },
   });
   const [updateEvent] = useMutation<UpdateEventMutation>(UPDATE_EVENT);
   const [deleteEvent] = useMutation<DeleteEventMutation>(DELETE_EVENT);
 
   const [isEdit, setIsEdit] = useState(false);
-  const event = data?.events?.find((event) => event.id === id);
+  const event = data?.events[0];
 
   const handleEdit = () => {
     setIsEdit(true);
   };
 
   const handleEditInput = (data: any) => {
-    console.log(data);
     try {
       updateEvent({
         variables: {

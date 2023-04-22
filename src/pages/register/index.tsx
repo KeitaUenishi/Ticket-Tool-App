@@ -1,4 +1,5 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 
 import { Layout } from "@/components/layouts/Layout";
@@ -9,9 +10,11 @@ import {
   CreateEventMutation,
   CreateEventMutationVariables,
 } from "@/types/generated/graphql";
+import { userState } from "@/store/user";
 
 export const Index = () => {
   const router = useRouter();
+  const userId = useRecoilValue(userState);
   const [insert_event_one] = useMutation<CreateEventMutation>(CREATE_EVENT);
   const onSubmit = async (data: CreateEventMutationVariables) => {
     try {
@@ -21,6 +24,7 @@ export const Index = () => {
           place_name: data.place_name,
           event_date: data.event_date,
           event_type_id: Number(data.event_type_id),
+          userId: userId,
         },
       });
 
