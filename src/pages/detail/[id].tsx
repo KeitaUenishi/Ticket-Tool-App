@@ -15,6 +15,7 @@ import {
   UpdateEventMutation,
 } from "@/types/generated/graphql";
 import { userState } from "@/store/user";
+import { changeDateToDisplay } from "@/util/dateTime";
 
 const Index = () => {
   const router = useRouter();
@@ -86,20 +87,31 @@ const Index = () => {
               <div className="text-gray-100">イベント種別</div>
               <div className="text-gray-100">{event?.event_type_id}</div>
               <div className="text-gray-100">登録日</div>
-              <div className="text-gray-100">{event?.created_date}</div>
+              <div className="text-gray-100">
+                {changeDateToDisplay(event?.created_date)}
+              </div>
               <div className="text-gray-100">更新日</div>
-              <div className="text-gray-100">{event?.updated_date}</div>
+              <div className="text-gray-100">
+                {changeDateToDisplay(event?.updated_date)}
+              </div>
             </div>
             <div className="flex justify-between mt-8 mb-8">
               <div>
-                <Button onClick={() => handleDelete()} color="error">
-                  削除
+                <Button onClick={() => router.back()} color="accent">
+                  戻る
                 </Button>
               </div>
               <div>
-                <Button onClick={() => handleEdit()} color="success">
-                  編集
-                </Button>
+                <span className="mr-4">
+                  <Button onClick={() => handleDelete()} color="error">
+                    削除
+                  </Button>
+                </span>
+                <span>
+                  <Button onClick={() => handleEdit()} color="success">
+                    編集
+                  </Button>
+                </span>
               </div>
             </div>
           </div>
