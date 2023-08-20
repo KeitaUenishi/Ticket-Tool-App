@@ -11,13 +11,13 @@ const httpLink = new HttpLink({
   uri: process.env.NEXT_PUBLIC_HASURA_PROJECT_ENDPOINT,
 });
 
+let token = "";
+
 const authLink = setContext((_, { headers }) => {
-  const adminSecret = process.env.NEXT_PUBLIC_HASURA_ADMIN_SECRET;
-  // TODO: セキュリティ的に良くないため、サーバーサイドに移動する
   return {
     headers: {
       ...headers,
-      "x-hasura-admin-secret": adminSecret,
+      Authorization: `Bearer ${token}`,
     },
   };
 });
@@ -30,7 +30,8 @@ const createApolloClient = () => {
     cache: new InMemoryCache(),
   });
 };
-export const initializeApollo = (initialState = null) => {
+export const initializeApollo = (accessToken: string) => {
+  token = accessToken;
   const _apolloClient = apolloClient ?? createApolloClient();
   // For SSG and SSR always create a new Apollo Client
   if (typeof window === "undefined") return _apolloClient;

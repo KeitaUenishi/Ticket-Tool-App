@@ -4,11 +4,17 @@ import { useForm } from "react-hook-form";
 
 type Props = {
   onSubmit: (data: any) => void;
+  onCanceled: () => void;
   buttonText: string;
   data?: any;
 };
 
-export const EventForm = ({ onSubmit, buttonText, data }: Props) => {
+export const EventForm = ({
+  onSubmit,
+  onCanceled,
+  buttonText,
+  data,
+}: Props) => {
   const { register, handleSubmit } = useForm({
     defaultValues: { ...data } ?? {},
   });
@@ -47,7 +53,10 @@ export const EventForm = ({ onSubmit, buttonText, data }: Props) => {
           <option value="2">2</option>
         </select>
       </div>
-      <div className="mb-8 flex justify-end">
+      <div className="mb-8 flex justify-between">
+        <Button type="button" color="accent" onClick={() => onCanceled()}>
+          戻る
+        </Button>
         <Button type="button" color="success" onClick={handleSubmit(onSubmit)}>
           {buttonText}
         </Button>

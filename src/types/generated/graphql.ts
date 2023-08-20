@@ -1283,9 +1283,9 @@ export type Query_Root = {
   accounts_aggregate: Accounts_Aggregate;
   /** fetch data from the table: "accounts" using primary key columns */
   accounts_by_pk?: Maybe<Accounts>;
-  /** fetch data from the table: "events" */
+  /** An array relationship */
   events: Array<Events>;
-  /** fetch aggregated fields from the table: "events" */
+  /** An aggregate relationship */
   events_aggregate: Events_Aggregate;
   /** fetch data from the table: "events" using primary key columns */
   events_by_pk?: Maybe<Events>;
@@ -1638,9 +1638,9 @@ export type Subscription_Root = {
   accounts_by_pk?: Maybe<Accounts>;
   /** fetch data from the table in a streaming manner: "accounts" */
   accounts_stream: Array<Accounts>;
-  /** fetch data from the table: "events" */
+  /** An array relationship */
   events: Array<Events>;
-  /** fetch aggregated fields from the table: "events" */
+  /** An aggregate relationship */
   events_aggregate: Events_Aggregate;
   /** fetch data from the table: "events" using primary key columns */
   events_by_pk?: Maybe<Events>;
@@ -1844,9 +1844,9 @@ export type Users = {
   accounts_aggregate: Accounts_Aggregate;
   email?: Maybe<Scalars['String']>;
   emailVerified?: Maybe<Scalars['timestamptz']>;
-  /** fetch data from the table: "events" */
+  /** An array relationship */
   events: Array<Events>;
-  /** fetch aggregated fields from the table: "events" */
+  /** An aggregate relationship */
   events_aggregate: Events_Aggregate;
   id: Scalars['uuid'];
   image?: Maybe<Scalars['String']>;

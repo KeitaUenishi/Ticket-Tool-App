@@ -35,6 +35,10 @@ const Index = () => {
     setIsEdit(true);
   };
 
+  const handleCancelEdit = () => {
+    setIsEdit(false);
+  };
+
   const handleEditInput = (data: any) => {
     try {
       updateEvent({
@@ -73,7 +77,12 @@ const Index = () => {
   return (
     <Layout>
       {isEdit ? (
-        <EventForm onSubmit={handleEditInput} buttonText="更新" data={event} />
+        <EventForm
+          onSubmit={handleEditInput}
+          onCanceled={handleCancelEdit}
+          buttonText="更新"
+          data={event}
+        />
       ) : (
         <>
           <div className="mt-48 mb-48 w-full">
@@ -88,12 +97,24 @@ const Index = () => {
               <div className="text-gray-100">{event?.event_type_id}</div>
               <div className="text-gray-100">登録日</div>
               <div className="text-gray-100">
-                {changeDateToDisplay(event?.created_date)}
+                {event?.created_date &&
+                  changeDateToDisplay(event?.created_date)}
               </div>
               <div className="text-gray-100">更新日</div>
               <div className="text-gray-100">
-                {changeDateToDisplay(event?.updated_date)}
+                {event?.updated_date &&
+                  changeDateToDisplay(event?.updated_date)}
               </div>
+            </div>
+            <div className="mt-8">
+              {/** IDを送って、そのIDに紐づいたお客さんリストを表示する */}
+              <Button
+                className="w-full"
+                onClick={() => router.push("/customer")}
+                color="success"
+              >
+                お客さん一覧表示
+              </Button>
             </div>
             <div className="flex justify-between mt-8 mb-8">
               <div>

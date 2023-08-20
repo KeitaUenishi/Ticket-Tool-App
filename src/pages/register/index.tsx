@@ -35,7 +35,11 @@ export const Index = () => {
   };
   return (
     <Layout>
-      <EventForm onSubmit={onSubmit} buttonText="登録" />
+      <EventForm
+        onSubmit={onSubmit}
+        onCanceled={() => router.push("/")}
+        buttonText="登録"
+      />
     </Layout>
   );
 };
