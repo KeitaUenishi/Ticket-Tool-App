@@ -1,68 +1,25 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { Button, Link } from "react-daisyui";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
-import { Layout } from "@/components/layouts/Layout";
 
-import { GET_EVENTS } from "@/queries/queries";
-import { GetEventsQuery } from "@/types/generated/graphql";
-import { userState } from "@/store/user";
+import { GET_ALL_EVENTS } from "@/queries/queries";
+import { GetAllEventsQuery } from "@/types/generated/graphql";
+import { EventIndex } from "@/components/page/Events";
 
 // ダッシュボード
 export default function Home() {
   const router = useRouter();
-  const userId = useRecoilValue(userState);
 
-  const { data } = useQuery<GetEventsQuery>(GET_EVENTS, {
-    fetchPolicy: "cache-and-network",
-    variables: { userId: userId },
+  // TODO: パラメーター仮置き
+  const { data } = useQuery<GetAllEventsQuery>(GET_ALL_EVENTS, {
+    variables: { event_date: "2023-04-01" },
   });
-
-  const { events } = data || {};
 
   const handleEdit = (editEventKey: string) => {
     router.push(`/detail/${editEventKey}`);
   };
 
   return (
-    <Layout>
-      <div className="mt-48 mb-48 w-full">
-        <div className="mx-auto mb-24 flex justify-center">
-          <h2 className="text-4xl">イベントリスト</h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="table w-full">
-            <thead>
-              <tr>
-                <th>開催日</th>
-                <th>イベント名</th>
-                <th>場所</th>
-              </tr>
-            </thead>
-            <tbody>
-              {events?.map((event) => {
-                return (
-                  <tr
-                    key={event.id}
-                    className="hover:bg-gray-600 transition-all duration-500 ease-out cursor-pointer"
-                    onClick={() => handleEdit(event.id)}
-                  >
-                    <td className="bg-transparent">{event.event_date}</td>
-                    <td className="bg-transparent">{event.event_name}</td>
-                    <td className="bg-transparent">{event.place_name}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        <div className="flex justify-end mt-8">
-          <Link href="/register">
-            <Button color="success">新規登録</Button>
-          </Link>
-        </div>
-      </div>
-    </Layout>
+    <EventIndex title="イベント一覧" data={data} handleEvent={handleEdit} />
   );
 }

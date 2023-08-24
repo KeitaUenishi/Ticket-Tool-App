@@ -5,8 +5,7 @@ import TwitterProvider from "next-auth/providers/twitter";
 import { HasuraAdapter } from "next-auth-hasura-adapter";
 import jsonwebtoken from "jsonwebtoken";
 
-const tokenSecret = JSON.parse(
-);
+const tokenSecret = JSON.parse();
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -66,6 +65,7 @@ export const authOptions: NextAuthOptions = {
       const encodedToken = jsonwebtoken.sign(token, tokenSecret.key, {
         algorithm: "HS256",
       });
+      console.log("encodedToken", encodedToken);
       if (session?.user) {
         session.user.id = token.sub!;
         session.user.accessToken = encodedToken;

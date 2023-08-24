@@ -2,8 +2,8 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 
-import { Layout } from "@/components/layouts/Layout";
-import { EventForm } from "@/components/ui-elements/form/form";
+import { Layout } from "@/components/page/layouts/Layout";
+import { EventForm } from "@/components/ui/Form/form";
 import { useMutation } from "@apollo/client";
 import { CREATE_EVENT } from "@/queries/queries";
 import {

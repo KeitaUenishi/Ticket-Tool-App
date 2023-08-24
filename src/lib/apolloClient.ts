@@ -32,6 +32,7 @@ const createApolloClient = () => {
 };
 export const initializeApollo = (accessToken: string) => {
   token = accessToken;
+  console.log("token", token);
   const _apolloClient = apolloClient ?? createApolloClient();
   // For SSG and SSR always create a new Apollo Client
   if (typeof window === "undefined") return _apolloClient;

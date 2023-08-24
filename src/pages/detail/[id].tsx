@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Button } from "react-daisyui";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
-import { Layout } from "@/components/layouts/Layout";
-import { EventForm } from "@/components/ui-elements/form/form";
+import { Layout } from "@/components/page/layouts/Layout";
+import { EventForm } from "@/components/ui/Form/form";
 
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_EVENT, UPDATE_EVENT, DELETE_EVENT } from "@/queries/queries";
@@ -16,6 +17,9 @@ import {
 } from "@/types/generated/graphql";
 import { userState } from "@/store/user";
 import { changeDateToDisplay } from "@/util/dateTime";
+import { DetailCard } from "@/components/ui/Card/DetailCard";
+import { TweetAndLink } from "@/components/ui/Button/TweetAndLink";
+import { ReserveForm } from "@/components/ui/Form/ReserveForm";
 
 const Index = () => {
   const router = useRouter();
@@ -23,7 +27,7 @@ const Index = () => {
   const userId = useRecoilValue(userState);
   const { data } = useQuery<GetEventQuery>(GET_EVENT, {
     fetchPolicy: "cache-and-network",
-    variables: { userId: userId, id: id },
+    variables: { user_id: userId, id: id },
   });
   const [updateEvent] = useMutation<UpdateEventMutation>(UPDATE_EVENT);
   const [deleteEvent] = useMutation<DeleteEventMutation>(DELETE_EVENT);
@@ -41,6 +45,7 @@ const Index = () => {
 
   const handleEditInput = (data: any) => {
     try {
+      // TODO: ここの型がなぜanyになるか
       updateEvent({
         variables: {
           id: data.id,
@@ -76,68 +81,30 @@ const Index = () => {
 
   return (
     <Layout>
-      {isEdit ? (
-        <EventForm
-          onSubmit={handleEditInput}
-          onCanceled={handleCancelEdit}
-          buttonText="更新"
-          data={event}
+      <div className="mt-48 mb-48 w-full">
+        <DetailCard
+          title={event?.event_title || ""}
+          actors={event?.actors || ""}
+          date={event?.event_date || ""}
+          place={event?.event_place || ""}
+          freeInput={event?.free_input || ""}
         />
-      ) : (
-        <>
-          <div className="mt-48 mb-48 w-full">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-gray-100">開催日</div>
-              <div className="text-gray-100">{event?.event_date}</div>
-              <div className="text-gray-100">イベント名</div>
-              <div className="text-gray-100">{event?.event_name}</div>
-              <div className="text-gray-100">場所</div>
-              <div className="text-gray-100">{event?.place_name}</div>
-              <div className="text-gray-100">イベント種別</div>
-              <div className="text-gray-100">{event?.event_type_id}</div>
-              <div className="text-gray-100">登録日</div>
-              <div className="text-gray-100">
-                {event?.created_date &&
-                  changeDateToDisplay(event?.created_date)}
-              </div>
-              <div className="text-gray-100">更新日</div>
-              <div className="text-gray-100">
-                {event?.updated_date &&
-                  changeDateToDisplay(event?.updated_date)}
-              </div>
-            </div>
-            <div className="mt-8">
-              {/** IDを送って、そのIDに紐づいたお客さんリストを表示する */}
-              <Button
-                className="w-full"
-                onClick={() => router.push("/customer")}
-                color="success"
-              >
-                お客さん一覧表示
-              </Button>
-            </div>
-            <div className="flex justify-between mt-8 mb-8">
-              <div>
-                <Button onClick={() => router.back()} color="accent">
-                  戻る
-                </Button>
-              </div>
-              <div>
-                <span className="mr-4">
-                  <Button onClick={() => handleDelete()} color="error">
-                    削除
-                  </Button>
-                </span>
-                <span>
-                  <Button onClick={() => handleEdit()} color="success">
-                    編集
-                  </Button>
-                </span>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+        <div className="mt-8 mb-8">
+          <Image
+            width={1080}
+            height={720}
+            src="/test_event_image.png"
+            alt="event_image"
+          />
+        </div>
+        <div className="flex justify-around mt-8">
+          <TweetAndLink />
+        </div>
+        <div className="mt-16 mb-8">
+          <h3 className="text-2xl mb-8">取り置きする</h3>
+          <ReserveForm />
+        </div>
+      </div>
     </Layout>
   );
 };

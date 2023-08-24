@@ -3,8 +3,8 @@ import { useSetRecoilState } from "recoil";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { Footer } from "@/components/layouts/Footer";
-import { Navbar } from "@/components/layouts/Navbar";
+import { Footer } from "@/components/page/layouts/Footer";
+import { Navbar } from "@/components/page/layouts/Navbar";
 import { userState } from "@/store/user";
 
 type Props = {
